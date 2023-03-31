@@ -11,7 +11,8 @@ MAKEFLAGS	+= --no-print-directory
 
 LFLAGS		= $(foreach lib, $(shell ls libs/), -L$(LIB_FOLDER)$(lib) -l$(subst lib,,$(subst .a,,$(lib)))) $(LNK)
 
-INCLUDES	= -I $(INC_FOLDER) $(shell echo $(foreach lib, $(shell ls libs/), $(shell find $(LIB_FOLDER) -type f) | tr ' ' '\n' | grep .h | sed "s/[a-z]*.h$///g" | uniq))
+#INCLUDES	= -I $(INC_FOLDER) $(shell echo $(foreach lib, $(shell ls libs/), $(shell find $(LIB_FOLDER) -type f) | tr ' ' '\n' | grep .h | sed "s/[a-z]*.h$///g" | uniq))
+INCLUDES	= $(shell echo $(foreach lib, $(shell ls $(LIB_FOLDER)), $(shell find $(LIB_FOLDER)$(lib) -type f)) | tr ' ' '\n' | grep \\.h )
 
 SRCS		= $(shell find $(SRC_FOLDER) -type f)
 
